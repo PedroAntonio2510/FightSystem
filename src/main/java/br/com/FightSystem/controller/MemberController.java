@@ -1,7 +1,6 @@
 package br.com.FightSystem.controller;
 
 import br.com.FightSystem.domain.dto.MemberDTO;
-import br.com.FightSystem.domain.member.Member;
 import br.com.FightSystem.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,8 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity<MemberDTO> save(@RequestBody MemberDTO memberDTO) {
-        return ResponseEntity.ok(memberService.save(memberDTO));
+        MemberDTO savedMember = memberService.save(memberDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
     }
 
     @DeleteMapping("/{id}")

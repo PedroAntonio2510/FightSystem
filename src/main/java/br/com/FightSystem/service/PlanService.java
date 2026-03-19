@@ -39,7 +39,7 @@ public class PlanService {
         return PlanMapper.map(updatedPlan);
     }
 
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         planRepository.findById(id)
                 .orElseThrow(null);
         planRepository.deleteById(id);
