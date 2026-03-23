@@ -52,13 +52,15 @@ public class Member {
         this.updatedAt = updatedAt;
     }
 
-    public Member(String name, String cpf, String email, LocalDate birthDate, String belt) {
+    public Member(Long id, String name, String cpf, String email, LocalDate birthDate, String belt) {
+        this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.email = email;
         this.birthDate = birthDate;
         this.belt = belt;
     }
+
 
     public static MemberBuilder builder() {
         return new MemberBuilder();
@@ -129,11 +131,17 @@ public class Member {
     }
 
     public static class MemberBuilder {
+        private Long id;
         private String name;
         private String cpf;
         private String email;
         private LocalDate birthDate;
         private String belt;
+
+        public MemberBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
 
         public MemberBuilder name(String name) {
             this.name = name;
@@ -159,7 +167,7 @@ public class Member {
         }
 
         public Member build() {
-            return new Member(name, cpf, email, birthDate, belt);
+            return new Member(id, name, cpf, email, birthDate, belt);
         }
     }
 }
