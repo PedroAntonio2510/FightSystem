@@ -2,8 +2,8 @@ package br.com.FightSystem.mapper;
 
 import br.com.FightSystem.domain.Enroll;
 import br.com.FightSystem.domain.Plan;
-import br.com.FightSystem.domain.dto.EnrollDTO;
-import br.com.FightSystem.domain.member.Member;
+import br.com.FightSystem.dto.EnrollDTO;
+import br.com.FightSystem.domain.Member;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,14 +1,10 @@
 package br.com.FightSystem.service;
 
 import br.com.FightSystem.domain.Enroll;
+import br.com.FightSystem.domain.Member;
 import br.com.FightSystem.domain.Plan;
-import br.com.FightSystem.domain.dto.EnrollDTO;
-import br.com.FightSystem.domain.dto.MemberDTO;
-import br.com.FightSystem.domain.dto.PlanDTO;
-import br.com.FightSystem.domain.member.Member;
+import br.com.FightSystem.dto.EnrollDTO;
 import br.com.FightSystem.mapper.EnrollMapper;
-import br.com.FightSystem.mapper.MemberMapper;
-import br.com.FightSystem.mapper.PlanMapper;
 import br.com.FightSystem.repository.EnrollRepository;
 import org.springframework.stereotype.Service;
 
@@ -41,11 +37,12 @@ public class EnrollService {
     public EnrollDTO save(EnrollDTO enrollDTO) {
         Enroll enroll = EnrollMapper.map(enrollDTO);
 
-        Plan planFound = findPlan(enroll.getPlan().getId());
-        Member memberFound = findMember(enroll.getMember().getId());
+        Plan plan = planService.findById(enroll.getPlan().getId());
+        Member member = memberService.findById(enroll.getMember().getId());
 
-        enroll.setPlan(planFound);
-        enroll.setMember(memberFound);
+
+        enroll.setPlan(plan);
+        enroll.setMember(member);
         enrollRepository.save(enroll);
         return EnrollMapper.map(enroll);
     }
@@ -53,13 +50,15 @@ public class EnrollService {
     public Optional<EnrollDTO> update(Long id, Enroll updatedEnroll) {
         Optional<Enroll> optEnroll = enrollRepository.findById(id);
         if (optEnroll.isPresent()) {
-            Plan plan = findPlan(updatedEnroll.getPlan().getId());
-            Member member = findMember(updatedEnroll.getMember().getId());
+            Plan plan = planService.findById(updatedEnroll.getPlan().getId());
+            Member member = memberService.findById(updatedEnroll.getMember().getId());
             Enroll enroll = optEnroll.get();
 
             enroll.setPlan(plan);
             enroll.setMember(member);
-            enroll.setEnrolled(enroll.isEnrolled());
+            enroll.setEnrolled(updatedEnroll.isEnrolled());
+
+            enrollRepository.save(enroll);
 
             return Optional.of(EnrollMapper.map(enroll));
         }
@@ -68,15 +67,5 @@ public class EnrollService {
 
     public void deleteById(Long id) {
         enrollRepository.deleteById(id);
-    }
-
-    public Plan findPlan(Long id) {
-        PlanDTO plan = planService.findById(id);
-        return PlanMapper.map(plan);
-    }
-
-    public Member findMember(Long id) {
-        MemberDTO memberDTO = memberService.findById(id);
-        return MemberMapper.map(memberDTO);
     }
 }

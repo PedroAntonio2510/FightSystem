@@ -1,7 +1,7 @@
 package br.com.FightSystem.service;
 
-import br.com.FightSystem.domain.dto.MemberDTO;
-import br.com.FightSystem.domain.member.Member;
+import br.com.FightSystem.dto.MemberDTO;
+import br.com.FightSystem.domain.Member;
 import br.com.FightSystem.mapper.MemberMapper;
 import br.com.FightSystem.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -17,26 +17,26 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public List<MemberDTO> findAll() {
-        return memberRepository.findAll().stream().map(MemberMapper::map).toList();
+    public List<Member> findAll() {
+        return memberRepository.findAll();
     }
 
-    public MemberDTO findById(Long id) {
+    public Member findById(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(null);
-        return MemberMapper.map(member);
+        return member;
     }
 
-    public MemberDTO save(MemberDTO member) {
+    public Member save(MemberDTO member) {
         Member memberSaved = memberRepository.save(MemberMapper.map(member));
-        return MemberMapper.map(memberSaved);
+        return memberSaved;
     }
 
-    public MemberDTO update(MemberDTO memberDTO, Long id) {
+    public Member update(MemberDTO memberDTO, Long id) {
         memberRepository.findById(id).orElseThrow(null);
         Member updatedMember = MemberMapper.map(memberDTO);
         updatedMember.setId(id);
         Member savedMember = memberRepository.save(updatedMember);
-        return MemberMapper.map(savedMember);
+        return savedMember;
     }
 
     public void deleteById(Long id) {

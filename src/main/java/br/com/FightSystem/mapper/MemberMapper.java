@@ -1,7 +1,7 @@
 package br.com.FightSystem.mapper;
 
-import br.com.FightSystem.domain.member.Member;
-import br.com.FightSystem.domain.dto.MemberDTO;
+import br.com.FightSystem.domain.Member;
+import br.com.FightSystem.dto.MemberDTO;
 import org.springframework.stereotype.Component;
 
 @Component

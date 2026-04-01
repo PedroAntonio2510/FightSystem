@@ -1,9 +1,7 @@
 package br.com.FightSystem.controller;
 
-import br.com.FightSystem.domain.Enroll;
-import br.com.FightSystem.domain.dto.EnrollDTO;
+import br.com.FightSystem.dto.EnrollDTO;
 import br.com.FightSystem.mapper.EnrollMapper;
-import br.com.FightSystem.repository.EnrollRepository;
 import br.com.FightSystem.service.EnrollService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

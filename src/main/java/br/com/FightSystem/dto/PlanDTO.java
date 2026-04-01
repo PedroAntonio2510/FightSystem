@@ -1,4 +1,4 @@
-package br.com.FightSystem.domain.dto;
+package br.com.FightSystem.dto;
 
 import java.math.BigDecimal;
 

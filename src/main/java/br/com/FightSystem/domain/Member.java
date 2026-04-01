@@ -1,4 +1,4 @@
-package br.com.FightSystem.domain.member;
+package br.com.FightSystem.domain;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

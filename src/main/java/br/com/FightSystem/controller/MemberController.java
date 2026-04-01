@@ -1,6 +1,8 @@
 package br.com.FightSystem.controller;
 
-import br.com.FightSystem.domain.dto.MemberDTO;
+import br.com.FightSystem.domain.Member;
+import br.com.FightSystem.dto.MemberDTO;
+import br.com.FightSystem.mapper.MemberMapper;
 import br.com.FightSystem.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,20 +23,21 @@ public class MemberController {
 
     @GetMapping
     public ResponseEntity<Map<String, List<MemberDTO>>> findAll() {
+        List<MemberDTO> members = memberService.findAll().stream().map(MemberMapper::map).toList();
         return ResponseEntity.ok(Map.of("members",
-                memberService.findAll()));
+                members));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MemberDTO> findById(@PathVariable Long id) {
-        MemberDTO memberFound = memberService.findById(id);
-        return ResponseEntity.ok(memberFound);
+        Member memberFound = memberService.findById(id);
+        return ResponseEntity.ok(MemberMapper.map(memberFound));
     }
 
     @PostMapping
     public ResponseEntity<MemberDTO> save(@RequestBody MemberDTO memberDTO) {
-        MemberDTO savedMember = memberService.save(memberDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
+        Member savedMember = memberService.save(memberDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(MemberMapper.map(savedMember));
     }
 
     @DeleteMapping("/{id}")
@@ -45,8 +48,8 @@ public class MemberController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, MemberDTO>> update(@RequestBody MemberDTO memberDTO, @PathVariable Long id) {
-        MemberDTO updatedMember = memberService.update(memberDTO, id);
+        Member updatedMember = memberService.update(memberDTO, id);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Map.of("updatedMember", updatedMember));
+                .body(Map.of("updatedMember", MemberMapper.map(updatedMember)));
     }
 }

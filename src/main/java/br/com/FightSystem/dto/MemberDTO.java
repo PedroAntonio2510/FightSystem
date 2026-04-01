@@ -1,4 +1,6 @@
-package br.com.FightSystem.domain.dto;
+package br.com.FightSystem.dto;
+
+import br.com.FightSystem.domain.Enroll;
 
 import java.time.LocalDate;
 
@@ -9,5 +11,6 @@ public record MemberDTO(
         String email,
         LocalDate birthDate,
         String belt
+
         ) {
 }

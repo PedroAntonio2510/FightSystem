@@ -1,6 +1,5 @@
 package br.com.FightSystem.domain;
 
-import br.com.FightSystem.domain.member.Member;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -84,7 +83,7 @@ public class Enroll {
     }
 
     public boolean isEnrolled() {
-        return enrolled;
+        return enrolled ? true : false;
     }
 
     public void setEnrolled(boolean enrolled) {
