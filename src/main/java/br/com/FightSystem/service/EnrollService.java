@@ -37,9 +37,12 @@ public class EnrollService {
     public EnrollDTO save(EnrollDTO enrollDTO) {
         Enroll enroll = EnrollMapper.map(enrollDTO);
 
+        if (enroll.getEnrollStatus() == null) {
+            enroll.setEnrollStatus(br.com.FightSystem.domain.enums.EnrollStatus.INACTIVE);
+        }
+
         Plan plan = planService.findById(enroll.getPlan().getId());
         Member member = memberService.findById(enroll.getMember().getId());
-
 
         enroll.setPlan(plan);
         enroll.setMember(member);
@@ -56,7 +59,7 @@ public class EnrollService {
 
             enroll.setPlan(plan);
             enroll.setMember(member);
-            enroll.setEnrolled(updatedEnroll.isEnrolled());
+            enroll.setEnrollStatus(updatedEnroll.getEnrollStatus());
 
             enrollRepository.save(enroll);
 

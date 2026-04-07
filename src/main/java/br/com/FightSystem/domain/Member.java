@@ -18,7 +18,7 @@ public class Member {
     @Column(length = 100)
     private String name;
 
-    @Column(length = 11, unique = true)
+    @Column(length = 11, nullable = false, unique = true)
     private String cpf;
 
     @Column(length = 155)

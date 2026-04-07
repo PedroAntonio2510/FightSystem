@@ -22,7 +22,7 @@ public class EnrollMapper {
                 .id(enrollDTO.id())
                 .plan(plan)
                 .member(member)
-                .enrolled(enrollDTO.enrolled())
+                .enrolled(enrollDTO.enrollStatus())
                 .build();
     }
 
@@ -30,7 +30,7 @@ public class EnrollMapper {
         return new EnrollDTO(enroll.getId(),
                 PlanMapper.map(enroll.getPlan()),
                 MemberMapper.map(enroll.getMember()),
-                enroll.isEnrolled()
+                enroll.getEnrollStatus()
         );
     }
 }

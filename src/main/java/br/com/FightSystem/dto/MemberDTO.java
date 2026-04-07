@@ -1,6 +1,6 @@
 package br.com.FightSystem.dto;
 
-import br.com.FightSystem.domain.Enroll;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
@@ -22,6 +22,7 @@ public record MemberDTO(
         String email,
 
         @NotNull(message = "Birth Date is necessary")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate birthDate,
 
         @NotNull(message = "Belt is necessary")

@@ -27,6 +27,7 @@ public class MemberService {
     }
 
     public Member save(MemberDTO member) {
+        existsByCpf(member.cpf());
         Member memberSaved = memberRepository.save(MemberMapper.map(member));
         return memberSaved;
     }
@@ -43,5 +44,12 @@ public class MemberService {
         memberRepository.findById(id)
                 .orElseThrow(null);
         memberRepository.deleteById(id);
+    }
+
+    private boolean existsByCpf(String cpf) {
+        if (!memberRepository.existsByCpf(cpf)) {
+            return true;
+        }
+        throw new IllegalArgumentException("Member already exists");
     }
 }

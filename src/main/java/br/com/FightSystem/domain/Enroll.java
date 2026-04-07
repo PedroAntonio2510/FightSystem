@@ -1,5 +1,6 @@
 package br.com.FightSystem.domain;
 
+import br.com.FightSystem.domain.enums.EnrollStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -26,16 +27,18 @@ public class Enroll {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    private boolean enrolled;
+    @Column(name = "enroll_status")
+    @Enumerated(EnumType.STRING)
+    private EnrollStatus enrollStatus;
 
     public Enroll() {
     }
 
-    public Enroll(Long id, Plan plan, Member member, boolean enrolled) {
+    public Enroll(Long id, Plan plan, Member member, EnrollStatus enrollStatus) {
         this.id = id;
         this.plan = plan;
         this.member = member;
-        this.enrolled = enrolled;
+        this.enrollStatus = enrollStatus;
     }
 
     public static EnrollBuilder builder() {
@@ -82,19 +85,19 @@ public class Enroll {
         this.endDate = endDate;
     }
 
-    public boolean isEnrolled() {
-        return enrolled ? true : false;
+    public EnrollStatus getEnrollStatus() {
+        return enrollStatus;
     }
 
-    public void setEnrolled(boolean enrolled) {
-        this.enrolled = enrolled;
+    public void setEnrollStatus(EnrollStatus enrollStatus) {
+        this.enrollStatus = enrollStatus;
     }
 
     public static class EnrollBuilder {
         private Long id;
         private Plan plan;
         private Member member;
-        private boolean enrolled;
+        private EnrollStatus enrollStatus;
 
         public EnrollBuilder id(Long id) {
             this.id = id;
@@ -111,13 +114,13 @@ public class Enroll {
             return this;
         }
 
-        public EnrollBuilder enrolled(boolean enrolled) {
-            this.enrolled = enrolled;
+        public EnrollBuilder enrolled(EnrollStatus enrollStatus) {
+            this.enrollStatus = enrollStatus;
             return this;
         }
 
         public Enroll build() {
-            return new Enroll(id, plan, member, enrolled);
+            return new Enroll(id, plan, member, enrollStatus);
         }
     }
 }

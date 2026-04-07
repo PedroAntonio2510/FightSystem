@@ -1,5 +1,6 @@
 package br.com.FightSystem.dto;
 
+import br.com.FightSystem.domain.enums.EnrollStatus;
 import jakarta.validation.constraints.NotNull;
 
 public record EnrollDTO(
@@ -10,5 +11,5 @@ public record EnrollDTO(
         @NotNull(message = "Member is necessary")
         MemberDTO member,
 
-        boolean enrolled) {
+        EnrollStatus enrollStatus) {
 }
