@@ -22,7 +22,7 @@ public class EnrollMapper {
                 .id(enrollDTO.id())
                 .plan(plan)
                 .member(member)
-                .enrolled(enrollDTO.enrollStatus())
+                .enrollStatus(enrollDTO.enrollStatus())
                 .build();
     }
 
