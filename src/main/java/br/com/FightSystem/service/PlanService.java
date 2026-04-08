@@ -1,6 +1,6 @@
 package br.com.FightSystem.service;
 
-import br.com.FightSystem.domain.Plan;
+import br.com.FightSystem.domain.PlanModel;
 import br.com.FightSystem.dto.PlanDTO;
 import br.com.FightSystem.mapper.PlanMapper;
 import br.com.FightSystem.repository.PlanRepository;
@@ -17,26 +17,26 @@ public class PlanService {
         this.planRepository = planRepository;
     }
 
-    public Plan findById(Long id) {
-        Plan planFound = planRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Plan not found"));
-        return planFound;
+    public PlanModel findById(Long id) {
+        PlanModel planModelFound = planRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Plan not found"));
+        return planModelFound;
     }
 
-    public List<Plan> findAll() {
+    public List<PlanModel> findAll() {
         return planRepository.findAll();
     }
 
-    public Plan save(PlanDTO planDTO) {
-        Plan savedPlan = planRepository.save(PlanMapper.map(planDTO));
-        return savedPlan;
+    public PlanModel save(PlanDTO planDTO) {
+        PlanModel savedPlanModel = planRepository.save(PlanMapper.map(planDTO));
+        return savedPlanModel;
     }
 
-    public Plan update(PlanDTO plan, Long id) {
+    public PlanModel update(PlanDTO plan, Long id) {
         planRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Plan not found"));
-        Plan updatedPlan = PlanMapper.map(plan);
-        updatedPlan.setId(id);
-        Plan savedPlan = planRepository.save(updatedPlan);
-        return savedPlan;
+        PlanModel updatedPlanModel = PlanMapper.map(plan);
+        updatedPlanModel.setId(id);
+        PlanModel savedPlanModel = planRepository.save(updatedPlanModel);
+        return savedPlanModel;
     }
 
     public void deleteById(Long id) {

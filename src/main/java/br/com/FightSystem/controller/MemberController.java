@@ -1,6 +1,6 @@
 package br.com.FightSystem.controller;
 
-import br.com.FightSystem.domain.Member;
+import br.com.FightSystem.domain.MemberModel;
 import br.com.FightSystem.dto.MemberDTO;
 import br.com.FightSystem.mapper.MemberMapper;
 import br.com.FightSystem.service.MemberService;
@@ -30,14 +30,14 @@ public class MemberController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MemberDTO> findById(@PathVariable Long id) {
-        Member memberFound = memberService.findById(id);
-        return ResponseEntity.ok(MemberMapper.map(memberFound));
+        MemberModel memberModelFound = memberService.findById(id);
+        return ResponseEntity.ok(MemberMapper.map(memberModelFound));
     }
 
     @PostMapping
     public ResponseEntity<MemberDTO> save(@RequestBody MemberDTO memberDTO) {
-        Member savedMember = memberService.save(memberDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(MemberMapper.map(savedMember));
+        MemberModel savedMemberModel = memberService.save(memberDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(MemberMapper.map(savedMemberModel));
     }
 
     @DeleteMapping("/{id}")
@@ -48,8 +48,8 @@ public class MemberController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, MemberDTO>> update(@RequestBody MemberDTO memberDTO, @PathVariable Long id) {
-        Member updatedMember = memberService.update(memberDTO, id);
+        MemberModel updatedMemberModel = memberService.update(memberDTO, id);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Map.of("updatedMember", MemberMapper.map(updatedMember)));
+                .body(Map.of("updatedMember", MemberMapper.map(updatedMemberModel)));
     }
 }

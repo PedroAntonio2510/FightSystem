@@ -1,14 +1,13 @@
 package br.com.FightSystem.mapper;
 
-import br.com.FightSystem.domain.Plan;
+import br.com.FightSystem.domain.PlanModel;
 import br.com.FightSystem.dto.PlanDTO;
 import org.springframework.stereotype.Component;
 
-@Component
 public class PlanMapper {
 
-    public static Plan map(PlanDTO planDTO) {
-        return Plan.builder()
+    public static PlanModel map(PlanDTO planDTO) {
+        return PlanModel.builder()
                 .id(planDTO.id())
                 .name(planDTO.name())
                 .price(planDTO.price())
@@ -17,13 +16,13 @@ public class PlanMapper {
                 .build();
     }
 
-    public static PlanDTO map(Plan plan) {
+    public static PlanDTO map(PlanModel planModel) {
         return PlanDTO.builder()
-                .id(plan.getId())
-                .name(plan.getName())
-                .price(plan.getPrice())
-                .description(plan.getDescription())
-                .monthDuration(plan.getMonthDuration())
+                .id(planModel.getId())
+                .name(planModel.getName())
+                .price(planModel.getPrice())
+                .description(planModel.getDescription())
+                .monthDuration(planModel.getMonthDuration())
                 .build();
     }
 }

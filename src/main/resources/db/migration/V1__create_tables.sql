@@ -31,7 +31,7 @@ CREATE TABLE plans (
 
 CREATE TYPE status AS ENUM ('ACTIVE', 'INACTIVE', 'CANCELLED');
 
-CREATE TABLE enroll (
+CREATE TABLE enrolls (
     id serial primary key,
     plan_id int,
     member_id int,

@@ -1,8 +1,8 @@
 package br.com.FightSystem.service;
 
-import br.com.FightSystem.domain.Enroll;
-import br.com.FightSystem.domain.Member;
-import br.com.FightSystem.domain.Plan;
+import br.com.FightSystem.domain.EnrollModel;
+import br.com.FightSystem.domain.MemberModel;
+import br.com.FightSystem.domain.PlanModel;
 import br.com.FightSystem.dto.EnrollDTO;
 import br.com.FightSystem.mapper.EnrollMapper;
 import br.com.FightSystem.repository.EnrollRepository;
@@ -25,45 +25,45 @@ public class EnrollService {
     }
 
     public List<EnrollDTO> findAll() {
-        List<Enroll> enrolls = enrollRepository.findAll();
-        return enrolls.stream().map(EnrollMapper::map).toList();
+        List<EnrollModel> enrollModels = enrollRepository.findAll();
+        return enrollModels.stream().map(EnrollMapper::map).toList();
     }
 
     public EnrollDTO findById(Long id) {
-        Enroll enroll = enrollRepository.findById(id).orElse(null);
-        return EnrollMapper.map(enroll);
+        EnrollModel enrollModel = enrollRepository.findById(id).orElse(null);
+        return EnrollMapper.map(enrollModel);
     }
 
     public EnrollDTO save(EnrollDTO enrollDTO) {
-        Enroll enroll = EnrollMapper.map(enrollDTO);
+        EnrollModel enrollModel = EnrollMapper.map(enrollDTO);
 
-        if (enroll.getEnrollStatus() == null) {
-            enroll.setEnrollStatus(br.com.FightSystem.domain.enums.EnrollStatus.INACTIVE);
+        if (enrollModel.getEnrollStatus() == null) {
+            enrollModel.setEnrollStatus(br.com.FightSystem.domain.enums.EnrollStatus.INACTIVE);
         }
 
-        Plan plan = planService.findById(enroll.getPlan().getId());
-        Member member = memberService.findById(enroll.getMember().getId());
+        PlanModel planModel = planService.findById(enrollModel.getPlanModel().getId());
+        MemberModel memberModel = memberService.findById(enrollModel.getMemberModel().getId());
 
-        enroll.setPlan(plan);
-        enroll.setMember(member);
-        enrollRepository.save(enroll);
-        return EnrollMapper.map(enroll);
+        enrollModel.setPlanModel(planModel);
+        enrollModel.setMemberModel(memberModel);
+        enrollRepository.save(enrollModel);
+        return EnrollMapper.map(enrollModel);
     }
 
-    public Optional<EnrollDTO> update(Long id, Enroll updatedEnroll) {
-        Optional<Enroll> optEnroll = enrollRepository.findById(id);
+    public Optional<EnrollDTO> update(Long id, EnrollModel updatedEnrollModel) {
+        Optional<EnrollModel> optEnroll = enrollRepository.findById(id);
         if (optEnroll.isPresent()) {
-            Plan plan = planService.findById(updatedEnroll.getPlan().getId());
-            Member member = memberService.findById(updatedEnroll.getMember().getId());
-            Enroll enroll = optEnroll.get();
+            PlanModel planModel = planService.findById(updatedEnrollModel.getPlanModel().getId());
+            MemberModel memberModel = memberService.findById(updatedEnrollModel.getMemberModel().getId());
+            EnrollModel enrollModel = optEnroll.get();
 
-            enroll.setPlan(plan);
-            enroll.setMember(member);
-            enroll.setEnrollStatus(updatedEnroll.getEnrollStatus());
+            enrollModel.setPlanModel(planModel);
+            enrollModel.setMemberModel(memberModel);
+            enrollModel.setEnrollStatus(updatedEnrollModel.getEnrollStatus());
 
-            enrollRepository.save(enroll);
+            enrollRepository.save(enrollModel);
 
-            return Optional.of(EnrollMapper.map(enroll));
+            return Optional.of(EnrollMapper.map(enrollModel));
         }
         return Optional.empty();
     }

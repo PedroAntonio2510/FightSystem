@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Member {
+public class MemberModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class Member {
 
     @ManyToOne
     @JoinColumn(name = "gym_id")
-    private Gym gym;
+    private GymModel gymModel;
 
     @Column(name = "created_at")
     @CreationTimestamp

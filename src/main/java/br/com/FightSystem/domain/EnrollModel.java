@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Enroll {
+public class EnrollModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +21,11 @@ public class Enroll {
 
     @ManyToOne
     @JoinColumn(name = "plan_id")
-    private Plan plan;
+    private PlanModel planModel;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    private Member member;
+    private MemberModel memberModel;
 
     @Column(name = "start_date")
     private LocalDate startDate;

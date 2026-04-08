@@ -1,6 +1,6 @@
 package br.com.FightSystem.controller;
 
-import br.com.FightSystem.domain.Plan;
+import br.com.FightSystem.domain.PlanModel;
 import br.com.FightSystem.dto.PlanDTO;
 import br.com.FightSystem.mapper.PlanMapper;
 import br.com.FightSystem.service.PlanService;
@@ -30,21 +30,21 @@ public class PlanController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PlanDTO> findById(@PathVariable Long id) {
-        Plan plan = planService.findById(id);
-        return ResponseEntity.ok(PlanMapper.map(plan));
+        PlanModel planModel = planService.findById(id);
+        return ResponseEntity.ok(PlanMapper.map(planModel));
     }
 
     @PostMapping
     public ResponseEntity<PlanDTO> save(@RequestBody PlanDTO planDTO) {
-        Plan savedPlan = planService.save(planDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(PlanMapper.map(savedPlan));
+        PlanModel savedPlanModel = planService.save(planDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(PlanMapper.map(savedPlanModel));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, PlanDTO>> update(@PathVariable Long id,
                                           @RequestBody PlanDTO planDTO) {
-        Plan updatedPlan = planService.update(planDTO, id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("updatedPlan", PlanMapper.map(updatedPlan)));
+        PlanModel updatedPlanModel = planService.update(planDTO, id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("updatedPlan", PlanMapper.map(updatedPlanModel)));
     }
 
     @DeleteMapping("/{id}")
