@@ -1,11 +1,11 @@
-CREATE TABLE gym (
+CREATE TABLE gyms (
     id serial primary key,
-    name varchar(100) not null,
+    name varchar(50) not null,
     address varchar(100),
     created_at timestamp
 );
 
-CREATE TABLE member (
+CREATE TABLE members (
     id serial primary key,
     name varchar(100) not null,
     cpf varchar(11) unique not null,
@@ -18,7 +18,7 @@ CREATE TABLE member (
     FOREIGN KEY (gym_id) REFERENCES gym(id)
 );
 
-CREATE TABLE plan (
+CREATE TABLE plans (
     id serial primary key,
     name varchar(100),
     price numeric(10,2),
@@ -28,17 +28,6 @@ CREATE TABLE plan (
     FOREIGN KEY (gym_id) REFERENCES gym(id)
 );
 
-CREATE TABLE class (
-    id serial primary key,
-    gym_id int,
-    instructor_id int,
-    name varchar(50),
-    class_type varchar(50),
-    start_time timestamp,
-    created_at timestamp,
-    updated_at timestamp,
-    FOREIGN KEY (gym_id) REFERENCES gym(id)
-);
 
 CREATE TYPE status AS ENUM ('ACTIVE', 'INACTIVE', 'CANCELLED');
 
