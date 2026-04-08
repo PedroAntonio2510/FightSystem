@@ -36,6 +36,10 @@ public class Member {
     @Column(length = 20)
     private String belt;
 
+    @ManyToOne
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;

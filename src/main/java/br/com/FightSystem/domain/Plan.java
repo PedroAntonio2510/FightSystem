@@ -20,6 +20,10 @@ public class Plan {
 
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
+
     @Column(scale = 2, precision = 10)
     private BigDecimal price;
 
