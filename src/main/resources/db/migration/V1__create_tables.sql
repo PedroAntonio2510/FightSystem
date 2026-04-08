@@ -15,7 +15,7 @@ CREATE TABLE members (
     gym_id int,
     created_at timestamp,
     updated_at timestamp,
-    FOREIGN KEY (gym_id) REFERENCES gym(id)
+    FOREIGN KEY (gym_id) REFERENCES gyms(id)
 );
 
 CREATE TABLE plans (
@@ -25,7 +25,7 @@ CREATE TABLE plans (
     description text,
     gym_id int,
     month_duration integer,
-    FOREIGN KEY (gym_id) REFERENCES gym(id)
+    FOREIGN KEY (gym_id) REFERENCES gyms(id)
 );
 
 
@@ -38,8 +38,8 @@ CREATE TABLE enroll (
     start_date date,
     end_date date,
     enroll_status status,
-    FOREIGN KEY (plan_id) REFERENCES plan(id),
-    FOREIGN KEY (member_id) REFERENCES member(id)
+    FOREIGN KEY (plan_id) REFERENCES plans(id),
+    FOREIGN KEY (member_id) REFERENCES members(id)
 );
 
 

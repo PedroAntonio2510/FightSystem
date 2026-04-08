@@ -7,5 +7,5 @@ CREATE TABLE classes (
                          start_time timestamp,
                          created_at timestamp,
                          updated_at timestamp,
-                         FOREIGN KEY (gym_id) REFERENCES gym(id)
+                         FOREIGN KEY (gym_id) REFERENCES gyms(id)
 );
