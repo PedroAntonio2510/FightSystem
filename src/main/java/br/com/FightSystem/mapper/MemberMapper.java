@@ -8,12 +8,14 @@ import org.springframework.stereotype.Component;
 public class MemberMapper {
 
     public static MemberDTO map(Member member) {
-        return new MemberDTO(member.getId(),
-                member.getName(),
-                member.getCpf(),
-                member.getEmail(),
-                member.getBirthDate(),
-                member.getBelt());
+        return MemberDTO.builder()
+                .id(member.getId())
+                .name(member.getName())
+                .cpf(member.getCpf())
+                .email(member.getEmail())
+                .birthDate(member.getBirthDate())
+                .belt(member.getBelt())
+                .build();
     }
 
     public static Member map(MemberDTO memberDTO) {

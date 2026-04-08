@@ -2,7 +2,9 @@ package br.com.FightSystem.dto;
 
 import br.com.FightSystem.domain.enums.EnrollStatus;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
+@Builder
 public record EnrollDTO(
         Long id,
         @NotNull(message = "Plan is necessary")

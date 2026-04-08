@@ -18,12 +18,12 @@ public class PlanMapper {
     }
 
     public static PlanDTO map(Plan plan) {
-        return new PlanDTO(
-                plan.getId(),
-                plan.getName(),
-                plan.getPrice(),
-                plan.getDescription(),
-                plan.getMonthDuration()
-        );
+        return PlanDTO.builder()
+                .id(plan.getId())
+                .name(plan.getName())
+                .price(plan.getPrice())
+                .description(plan.getDescription())
+                .monthDuration(plan.getMonthDuration())
+                .build();
     }
 }

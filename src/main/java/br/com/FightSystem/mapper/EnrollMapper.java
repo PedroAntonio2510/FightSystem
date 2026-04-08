@@ -27,10 +27,11 @@ public class EnrollMapper {
     }
 
     public static EnrollDTO map(Enroll enroll) {
-        return new EnrollDTO(enroll.getId(),
-                PlanMapper.map(enroll.getPlan()),
-                MemberMapper.map(enroll.getMember()),
-                enroll.getEnrollStatus()
-        );
+        return EnrollDTO.builder()
+                .id(enroll.getId())
+                .plan(PlanMapper.map(enroll.getPlan()))
+                .member(MemberMapper.map(enroll.getMember()))
+                .enrollStatus(enroll.getEnrollStatus())
+                .build();
     }
 }

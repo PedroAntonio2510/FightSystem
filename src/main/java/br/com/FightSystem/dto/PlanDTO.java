@@ -1,9 +1,11 @@
 package br.com.FightSystem.dto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
 import java.math.BigDecimal;
 
+@Builder
 public record PlanDTO(
         Long id,
         @NotNull(message = "Name can`t be null")
