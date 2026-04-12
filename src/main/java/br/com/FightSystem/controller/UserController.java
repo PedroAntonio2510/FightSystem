@@ -3,6 +3,7 @@ package br.com.FightSystem.controller;
 import br.com.FightSystem.dto.UserDTO;
 import br.com.FightSystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userService.createUser(userDTO));
+        UserDTO user = userService.createUser(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @GetMapping
@@ -28,13 +30,13 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         UserDTO userDTO = userService.getUserById(id);
-        return userDTO != null ? ResponseEntity.ok(userDTO) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(userDTO);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         UserDTO updatedUser = userService.updateUser(id, userDTO);
-        return updatedUser != null ? ResponseEntity.ok(updatedUser) : ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedUser);
     }
 
     @DeleteMapping("/{id}")

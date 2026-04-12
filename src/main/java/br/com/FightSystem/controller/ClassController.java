@@ -3,6 +3,7 @@ package br.com.FightSystem.controller;
 import br.com.FightSystem.dto.ClassDTO;
 import br.com.FightSystem.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,16 @@ import java.util.List;
 @RequestMapping("/classes")
 public class ClassController {
 
-    @Autowired
-    private ClassService classService;
+    private final ClassService classService;
+
+    public ClassController(ClassService classService) {
+        this.classService = classService;
+    }
 
     @PostMapping
     public ResponseEntity<ClassDTO> createClass(@RequestBody ClassDTO classDTO) {
-        return ResponseEntity.ok(classService.createClass(classDTO));
+        ClassDTO savedClass = classService.createClass(classDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedClass);
     }
 
     @GetMapping
@@ -28,13 +33,13 @@ public class ClassController {
     @GetMapping("/{id}")
     public ResponseEntity<ClassDTO> getClassById(@PathVariable Long id) {
         ClassDTO classDTO = classService.getClassById(id);
-        return classDTO != null ? ResponseEntity.ok(classDTO) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(classDTO);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ClassDTO> updateClass(@PathVariable Long id, @RequestBody ClassDTO classDTO) {
         ClassDTO updatedClass = classService.updateClass(id, classDTO);
-        return updatedClass != null ? ResponseEntity.ok(updatedClass) : ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedClass);
     }
 
     @DeleteMapping("/{id}")
