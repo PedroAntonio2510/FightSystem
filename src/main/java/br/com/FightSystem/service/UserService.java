@@ -5,6 +5,7 @@ import br.com.FightSystem.dto.UserDTO;
 import br.com.FightSystem.mapper.UserMapper;
 import br.com.FightSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +14,18 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
 
-    public UserDTO createUser(UserDTO userDTO) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.encoder = encoder;
+    }
+
+    public UserModel createUser(UserDTO userDTO) {
         UserModel userModel = UserMapper.toModel(userDTO);
-        userModel = userRepository.save(userModel);
-        return UserMapper.toDTO(userModel);
+        userModel.setPassword(encoder.encode(userModel.getPassword()));
+        return userRepository.save(userModel);
     }
 
     public List<UserDTO> getAllUsers() {
