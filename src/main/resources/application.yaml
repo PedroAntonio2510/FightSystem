@@ -1,20 +1,8 @@
 spring:
   application:
     name: FightSystem
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    password: sa
-    username: sa
-
-  jpa:
-    show-sql: true
-  flyway:
-    enabled: true
+  profiles:
+    active: dev
 
 jwt:
-  secret: minha-secret-aqui
+  secret: ${JWT_SECRET:minha-secret-aqui}
