@@ -2,6 +2,7 @@ package br.com.FightSystem.service;
 
 import br.com.FightSystem.domain.UserModel;
 import br.com.FightSystem.dto.UserDTO;
+import br.com.FightSystem.exceptions.ExistingEmailException;
 import br.com.FightSystem.mapper.UserMapper;
 import br.com.FightSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class UserService {
     }
 
     public UserModel createUser(UserDTO userDTO) {
+        validate(userDTO.email());
         UserModel userModel = UserMapper.toModel(userDTO);
         userModel.setPassword(encoder.encode(userModel.getPassword()));
         return userRepository.save(userModel);
@@ -43,6 +45,9 @@ public class UserService {
     public UserDTO updateUser(Long id, UserDTO userDTO) {
         return userRepository.findById(id)
                 .map(userModel -> {
+                    if (!userModel.getEmail().equals(userDTO.email())) {
+                        validate(userDTO.email());
+                    }
                     userModel.setName(userDTO.name());
                     userModel.setEmail(userDTO.email());
                     userModel.setRole(userDTO.role());
@@ -54,5 +59,11 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public void validate(String email) {
+        userRepository.findByEmail(email).ifPresent(user -> {
+            throw new ExistingEmailException("Email already registered try again");
+        });
     }
 }
